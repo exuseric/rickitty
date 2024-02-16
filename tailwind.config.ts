@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        'orange': '#fca311',
+        'black': '#000000'
+      },
+      fontFamily: {
+        sans: ['Work Sans', 'sans-serif'],
+        serif: ['Inter', 'serif'],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
