@@ -9,7 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'orange': '#fca311',
+        'primary': '#fca311',
+        'secondary': '#4a71c4',
+        'light-primary': '#f2c782',
+        'light-secondary': '#82a6f2',
+        'dark-primary': '#3e2e14',
+        'dark-secondary': '#14213d',
         'black': '#000000'
       },
       fontFamily: {

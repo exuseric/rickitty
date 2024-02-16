@@ -3,31 +3,260 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+  /* CSS HSL */
+  --black: hsla(0, 0%, 0%, 1); /* #000000 */
+
+  --white: hsla(0, 0%, 100%, 1); /* #ffffff */
+  --off-white: hsla(0, 0%, 90%, 1); /* #e5e5e5 */
+
+  --light-orange: hsl(37, 81%, 73%); /* #f2c782 */
+  --orange: hsla(37, 51%, 53%, 1); /* #fca311 */
+  --dark-orange: hsl(37, 51%, 16%); /* #3e2e14 */
+
+  --light-blue: hsl(221, 81%, 73%); /* #82a6f2 */
+  --blue: hsl(221, 51%, 53%); /* #4a71c4 */
+  --dark-blue: hsl(221, 51%, 16%); /* #14213d */
+
+  --fg: var(--black);
+  --bg: var(--white);
+
+  --bg-primary: var(--orange);
+  --fg-primary: var(--dark-blue);
+
+  --bg-secondary: var(--blue);
+  --fg-secondary: var(--off-white);
+
+  --bg-primary-hover: var(--light-orange);
+  --fg-primary-hover: var(--dark-blue);
+
+  --bg-secondary-hover: var(--light-blue);
+  --fg-secondary-hover: var(--black);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --fg: var(--white);
+    --bg: var(--black);
   }
 }
 
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+
+body {
+  color: hsl(var(--fg));
+  background-color: hsl(var(--bg));
+}
+
+button {
+  transition: all 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+/* feedback */
+.btn[disabled] {
+  cursor: not-allowed;
+  background-color: var(--btn-disabled-bg);
+  color: var(--btn-disabled-label);
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.btn--icon .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1em;
+  height: 1em;
 }
 
 @layer utilities {
-  .text-balance {
+  .text-balance { 
     text-wrap: balance;
+  }
+
+  .btn {
+    text-transform: capitalize;
+    text-decoration: none;
+
+    width: max-content;
+    min-width: max-content;
+
+    border: 2px solid transparent;
+    
+    overflow: hidden;
+    cursor: pointer;
+
+    transition: all 0.35s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  }
+
+  .btn--icon {
+      display: flex;
+      justify-content: var(--justify, space-between);
+      align-items: var(--align, center);
+      gap: 4px;
+  }
+  .btn--icon-only {
+      display: flex;
+      justify-content: var(--justify, center);
+      align-items: var(--align, center);
+      gap: 4px;
+  }
+
+  .btn--primary {
+    color: var(--fg-primary);
+    background-color: var(--bg-primary);
+  }
+
+  .btn--secondary {
+    color: var(--fg-secondary);
+    background-color: var(--bg-secondary);
+  }
+
+  .btn--outline {
+    background-color: transparent;
+    border: 2px solid currentColor;
+  }
+  
+  .btn--outline--secondary {
+    color: var(--bg-secondary);
+    background-color: transparent;
+
+    border: 2px solid currentColor;
+  }
+
+  .btn--outline--primary {
+    color: var(--bg-primary);
+    background-color: transparent;
+
+    border: 2px solid currentColor;
+  }
+  
+  .btn--pill {
+    border-radius: calc(infinity * 1px);
+  }
+
+  .btn--round {
+    border-radius: calc(infinity * 1px);
+    padding: 0;
+
+    aspect-ratio: 1;
+  }
+
+  .btn--xs {
+    padding: 0.05rem 0.5rem;
+    font-size: 0.8em;
+  }
+  .btn--sm {
+    font-size: clamp(0.8em, 2vw, 1em);
+    padding: 0.15rem 0.5rem;
+  }
+  
+  .btn--md {
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .btn--lg {
+    padding: 1rem 1.5rem;
+  }
+
+  .btn--16 {
+    width: 1rem;
+    height: 1rem;
+  }
+  .btn--24 {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+  .btn--32 {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  @variants hover,focus {
+    .btn--primary-hover {
+      color: var(--fg-primary-hover);
+      background-color: var(--bg-primary-hover);
+
+      border-color: transparent;
+    }
+  
+    .btn--secondary-hover {
+      color: var(--fg-secondary-hover);
+      background-color: var(--bg-secondary-hover);
+
+      border-color: transparent;
+    }
   }
 }
