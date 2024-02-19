@@ -175,32 +175,23 @@ button {
   }
 
   .btn--primary {
-    color: var(--fg-primary);
-    background-color: var(--bg-primary);
+    @apply text-black bg-primary;
   }
 
   .btn--secondary {
-    color: var(--fg-secondary);
-    background-color: var(--bg-secondary);
+    @apply text-white bg-secondary;
   }
 
   .btn--outline {
-    background-color: transparent;
-    border: 2px solid currentColor;
+    @apply bg-transparent border-2 border-inherit;
   }
   
   .btn--outline--secondary {
-    color: var(--bg-secondary);
-    background-color: transparent;
-
-    border: 2px solid currentColor;
+    @apply text-secondary bg-transparent border-2 border-inherit border-solid;
   }
 
   .btn--outline--primary {
-    color: var(--bg-primary);
-    background-color: transparent;
-
-    border: 2px solid currentColor;
+    @apply text-primary bg-transparent border-2 border-solid border-inherit;
   }
   
   .btn--pill {
@@ -215,20 +206,18 @@ button {
   }
 
   .btn--xs {
-    padding: 0.05rem 0.5rem;
-    font-size: 0.8em;
+    @apply py-0 px-2 text-xs;
   }
   .btn--sm {
-    font-size: clamp(0.8em, 2vw, 1em);
-    padding: 0.15rem 0.5rem;
+    @apply py-1 px-2 text-sm;
   }
   
   .btn--md {
-    padding: 0.5rem 1.5rem;
+    @apply py-2 px-4;
   }
   
   .btn--lg {
-    padding: 1rem 1.5rem;
+    @apply py-3 px-8
   }
 
   .btn--16 {
@@ -244,19 +233,13 @@ button {
     height: 2rem;
   }
 
-  @variants hover,focus {
+  @layer utilities {
     .btn--primary-hover {
-      color: var(--fg-primary-hover);
-      background-color: var(--bg-primary-hover);
-
-      border-color: transparent;
+      @apply border-transparent bg-light-primary text-black;
     }
   
     .btn--secondary-hover {
-      color: var(--fg-secondary-hover);
-      background-color: var(--bg-secondary-hover);
-
-      border-color: transparent;
+      @apply text-black bg-secondary border-transparent;
     }
   }
 }
